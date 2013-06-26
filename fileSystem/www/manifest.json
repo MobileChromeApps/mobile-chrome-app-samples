@@ -1,0 +1,22 @@
+{
+  "name": "chrome.fileSystem Sample Application",
+  "description": "File System Sample App",
+  "manifest_version": 2,
+  "minimum_chrome_version": "23",
+  "version": "0.0.1",
+  "offline_enabled": true,
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "fileSystem",
+    "fileSystem.write"
+  ]
+}
