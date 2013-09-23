@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="org.chromium.SyncDemo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>SyncDemo</name>
+    <description>
+        Plain text description of this app
+    </description>
+    <author>
+        Author name and email
+    </author>
+    <content src="chrome-extension://undefined/chromeapp.html" />
+
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <access origin="*" />
+</widget>
