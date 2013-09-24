@@ -16,6 +16,7 @@
     }
   },
   "permissions": [
-    { "socket": ["tcp-listen::8081"] }
+    { "socket": ["tcp-listen::8081"] },
+    "http://localhost:8081/*"
   ]
 }
