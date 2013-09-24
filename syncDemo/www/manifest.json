@@ -15,6 +15,9 @@
       "scripts": ["background.js"]
     }
   },
+  "permissions": [
+    "syncFileSystem"
+  ],
   "oauth2": {
     "client_id": "199533847999.apps.googleusercontent.com",
     "scopes": [
