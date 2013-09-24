@@ -1,26 +1,28 @@
-function logEvent(text) {
+function logEvent(text, level) {
   var logLine = document.createElement('li');
+  if (level) {
+    logLine.className = level;
+  }
   logLine.innerHTML = text;
   document.querySelector("#logs ul").appendChild(logLine);
   console.log(text);
 }
 
 function startServer() {
-  logEvent("Starting web server");
+  logEvent("Starting web server", "info");
   chrome.socket.create('tcp', function(createInfo) {
-    logEvent("Socket created: " + createInfo.socketId);
+    logEvent("Socket created: " + createInfo.socketId, "info");
     chrome.socket.listen(createInfo.socketId, '0.0.0.0', 8081, function(result) {
       if (result == 0) {
         listenForConnectionAndDispatchHttpReceiver(createInfo.socketId);
       } else {
-        logEvent("Error on socket.listen: " + result);
+        logEvent("Error on socket.listen: " + result, "error");
       }
     });
   });
 }
 
 function listenForConnectionAndDispatchHttpReceiver(socketId) {
-  logEvent("Socket listening");
   chrome.socket.accept(socketId, function(acceptInfo) {
     logEvent("Connection established on socket " + acceptInfo.socketId);
     requests[acceptInfo.socketId] = {state: "new", data: ""};
@@ -104,7 +106,6 @@ function serveResource(socketId) {
       return serveFile(socketId, localParts, isDirRequest);
   }
   return serveError(socketId, 404, "Not Found");
-
 }
 
 function normalizePath(localParts) {
@@ -127,12 +128,10 @@ function serveAsset(socketId, localParts, isDirRequest) {
   if (localParts === false) return false;
   if (isDirRequest) localParts.push("index.html");
   var fileName = "/htdocs/" + localParts.join("/");
-  logEvent(fileName);
   var xhr = new XMLHttpRequest();
   xhr.open('GET', fileName);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(ev) {
-    logEvent("Asset read; returning");
     var header = ["HTTP/1.1 200 OK",
                   "Connection: close",
                   "Content-Type: text/html",
@@ -142,18 +141,12 @@ function serveAsset(socketId, localParts, isDirRequest) {
     var bufferView = new Uint8Array(buffer);
     for (var i=0; i < header.length; i++) bufferView[i] = header.charCodeAt(i); // unicode
     chrome.socket.write(socketId, buffer, function(writeInfo) {
-      logEvent("Going to write file data");
-      logEvent(xhr.response);
-      logEvent(typeof xhr.response);
-      logEvent(xhr.response.byteLength);
       chrome.socket.write(socketId, xhr.response, function(writeInfo) {
-        logEvent("disconnecting");
         chrome.socket.disconnect(socketId);
       });
     });
   };
   xhr.onerror = function(ev) {
-    logEvent("not found");
     serveError(socketId, 404, "Not Found");
   };
   xhr.send();
@@ -171,9 +164,7 @@ function serveFile(socketId, localParts, isDirRequest) {
     (window.resolveLocalFileSystemURL || window.resolveLocalFileSystemURI || window.webkitResolveLocalFileSystemURL)(fs.root.toURL() + "/htdocs/" + fileName, function(entry) {
       entry.file(function(fileObject) {
         var reader = new FileReader();
-logEvent('1');
         reader.onloadend = function (ev) {
-logEvent('2');
           var header = ["HTTP/1.1 200 OK",
                         "Connection: close",
                         "Content-Type: text/html",
@@ -182,11 +173,8 @@ logEvent('2');
           var buffer = new ArrayBuffer(header.length);
           var bufferView = new Uint8Array(buffer);
           for (var i=0; i < header.length; i++) bufferView[i] = header.charCodeAt(i); // unicode
-logEvent('3');
           chrome.socket.write(socketId, buffer, function(writeInfo) {
-logEvent('4');
             chrome.socket.write(socketId, reader.result, function(writeInfo) {
-logEvent('5');
               chrome.socket.disconnect(socketId);
             });
           });
@@ -207,7 +195,7 @@ logEvent('5');
 }
 
 function serveError(socketId, errno, errmsg) {
-  logEvent("Error: " + errno);
+  logEvent("Error: " + errno, "error");
   var data = ["HTTP/1.1 " + errno + " " + errmsg,
               "Connection: close",
               "Content-Type: text/plain",
@@ -238,7 +226,6 @@ function serveIndex(socketId) {
 }
 
 function serveHttpResponse(socketId, data) {
-  logEvent("Returning response");
   var buffer = new ArrayBuffer(data.length);
   var bufferView = new Uint8Array(buffer);
   for (var i=0; i < data.length; i++) bufferView[i] = data.charCodeAt(i); // unicode

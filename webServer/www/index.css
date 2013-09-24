@@ -1,3 +1,7 @@
+html, body {
+  overflow: scroll;
+}
+
 html {
   height: 100%;
 }
@@ -7,10 +11,36 @@ body {
   -webkit-box-shadow: 0 0 50px #ddd inset;
   font-family: OpenSans, Helvetica, Arial, sans;
   height: 100%;
-  margin: 0;
-  text-align: center;
+  margin: 0px;
 }
 
-img {
-  margin: 50px auto;
+h1 {
+  border-bottom: 1px solid #333;
+  padding: 5px;
+  margin: 20px 0 0;
+}
+
+ul {
+  background-color: green;
+  margin-top: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  padding-left: 0;
+  padding: 5px 2px;
+  background-color: hsl(105,30%,95%);
+}
+
+li:nth-child(2n) {
+  background-color: hsl(135,30%,92%);
+}
+
+li.error {
+  color: hsl(10,80%,50%);
+}
+
+li.info {
+  color: hsl(230,80%,50%);
 }
