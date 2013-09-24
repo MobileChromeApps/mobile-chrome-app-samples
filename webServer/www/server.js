@@ -1,3 +1,16 @@
+var mimeTypes = {
+  "html": "text/html",
+  "htm": "text/html",
+  "txt": "text/plain",
+  "css": "text/css",
+  "js": "application/javascript",
+  "jpeg": "image/jpeg",
+  "jpg": "image/jpeg",
+  "gif": "image/gif",
+  "png": "image/png",
+  "pdf": "application/pdf"
+}
+
 function logEvent(text, level) {
   var logLine = document.createElement('li');
   if (level) {
@@ -123,10 +136,20 @@ function normalizePath(localParts) {
   return localParts;
 }
 
+function mimeTypeForFileName(fileName) {
+  var mimeType = 'application/octet-stream'
+  if (fileName.lastIndexOf('.') > -1) {
+    var extension = fileName.substring(fileName.lastIndexOf('.')+1);
+    mimeType = mimeTypes[extension] || mimeType;
+  }
+  return mimeType;
+}
+
 function serveAsset(socketId, localParts, isDirRequest) {
   localParts = normalizePath(localParts);
   if (localParts === false) return false;
   if (isDirRequest) localParts.push("index.html");
+  var mimeType = mimeTypeForFileName(localParts[localParts.length-1]);
   var fileName = "/htdocs/" + localParts.join("/");
   var xhr = new XMLHttpRequest();
   xhr.open('GET', fileName);
@@ -134,7 +157,7 @@ function serveAsset(socketId, localParts, isDirRequest) {
   xhr.onload = function(ev) {
     var header = ["HTTP/1.1 200 OK",
                   "Connection: close",
-                  "Content-Type: text/html",
+                  "Content-Type: " + mimeType,
                   "Content-Length: " + xhr.response.byteLength,
                   "",""].join("\r\n");
     var buffer = new ArrayBuffer(header.length);
