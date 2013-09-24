@@ -164,33 +164,44 @@ function serveFile(socketId, localParts, isDirRequest) {
   if (localParts === false) return false;
   if (isDirRequest) localParts.push("index.html");
   var fileName = localParts.join("/");
-  logEvent(fileName);
-  window.requestFileSystem(window.PERSISTENT || window.LocalFileSystem.PERSISTENT, 0, function(fs) {
-    window.resolveLocalFileSystemURI(fs.root.toURL() + "/htdocs/" + fileName, function(entry) {
-     logEvent("found");
-     var reader = new FileReader();
-     reader.onloadend = function (ev) {
-        logEvent("File read; returning");
-        var header = ["HTTP/1.1 200 OK",
-              "Connection: close",
-              "Content-Type: text/html",
-              "Content-Length: " + ev.target.result.byteLength,
-              ""].join("\r\n");
-        chrome.socket.write(socketId, header, function(writeInfo) {
-          chrome.socket.write(socketId, ev.target.result, function(writeInfo) {
-            chrome.socket.disconnect(socketId);
+  if (window.webkitStorageInfo) {
+    window.webkitStorageInfo.requestQuota(window.PERSISTENT,1048576);
+  }
+  (window.requestFileSystem || window.webkitRequestFileSystem)(window.PERSISTENT || window.LocalFileSystem.PERSISTENT, 0, function(fs) {
+    (window.resolveLocalFileSystemURL || window.resolveLocalFileSystemURI || window.webkitResolveLocalFileSystemURL)(fs.root.toURL() + "/htdocs/" + fileName, function(entry) {
+      entry.file(function(fileObject) {
+        var reader = new FileReader();
+logEvent('1');
+        reader.onloadend = function (ev) {
+logEvent('2');
+          var header = ["HTTP/1.1 200 OK",
+                        "Connection: close",
+                        "Content-Type: text/html",
+                        "Content-Length: " + reader.result.byteLength,
+                        "",""].join("\r\n");
+          var buffer = new ArrayBuffer(header.length);
+          var bufferView = new Uint8Array(buffer);
+          for (var i=0; i < header.length; i++) bufferView[i] = header.charCodeAt(i); // unicode
+logEvent('3');
+          chrome.socket.write(socketId, buffer, function(writeInfo) {
+logEvent('4');
+            chrome.socket.write(socketId, reader.result, function(writeInfo) {
+logEvent('5');
+              chrome.socket.disconnect(socketId);
+            });
           });
-        });
-     };
-     reader.readAsArrayBuffer(entry);
+        };
+        reader.readAsArrayBuffer(fileObject);
+      },
+      function() {
+        serveError(socketId, 500, "Internal Server Error");
+      });
     },
     function() {
-      logEvent("not found");
       serveError(socketId, 404, "Not Found");
     });
   },
   function() {
-    logEvent("no local fs");
     serveError(socketId, 500, "Internal Server Error");
   });
 }
