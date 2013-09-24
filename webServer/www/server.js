@@ -60,6 +60,28 @@ function receiveHttpData(socketId) {
   });
 }
 
+function strip(str) {
+  return str.replace(/^\s+, '').replace(/\s+$/, '');
+}
+
+function parseHeaders(headerText) {
+  var headers = {};
+  var headerLines = headerText.split('\r\n');
+  var currentKey;
+  for (var i=0; i < headerLines.length; i++) {
+    if (/^\s/.test(headerLines[i])) {
+      if (!currentKey) { return headers; };
+      headers[currentKey] += ' ' + strip(headerLines[i]);
+    } else {
+      var splitPoint = headerLines[i].indexOf(':');
+      if (splitPoint == -1) { return headers; }
+      currentKey = strip(headerLines[i].substring(0,splitPoint).toLowerCase());
+      headers[currentKey] = strip(headerLines[i].substring(splitPoint+1));
+    }
+  }
+  return headers;
+}
+
 function processHttpRequest(socketId) {
   var request = requests[socketId];
   switch (request.state) {
@@ -67,7 +89,7 @@ function processHttpRequest(socketId) {
       var splitPoint = request.data.indexOf("\r\n");
       if (splitPoint > -1) {
         request.requestLine = request.data.substring(0, splitPoint);
-        request.data = request.data.substring(splitPoint);
+        request.data = request.data.substring(splitPoint+2);
         var requestParts = request.requestLine.split(' ');
         request.method = requestParts[0].toUpperCase();
         request.resource = requestParts[1];
@@ -80,18 +102,20 @@ function processHttpRequest(socketId) {
     case "requestReceived":
       var splitPoint = request.data.indexOf("\r\n\r\n");
       if (splitPoint > -1) {
-        request.headers = request.data.substring(0, splitPoint);
-        request.data = request.data.substring(splitPoint);
-        if (request.method === "GET") {
-          serveResource(socketId);
-          request.state = "responseSent";
-          return true;
-        }
+        request.headers = parseHeaders(request.data.substring(0, splitPoint));
+        request.contentLength = parseInt(request.headers['content-length'] || "0");
+        request.data = request.data.substring(splitPoint+4);
         request.state = "headersReceived";
         return processHttpRequest(socketId);
       }
       return false;
     case "headersReceived":
+      if (request.data.length >= request.contentLength) {
+        request.body = request.data.substring(0,request.contentLength);
+          serveResource(socketId);
+          request.state = "responseSent";
+          return true;
+      }
       break;
   }
 }
