@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, Mobile!</title>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+  </head>
+  <body>
+    <div id="masthead">
+      <div id="logo"><img src="assets/chrome_logo.png" /></div>
+      <h1>IAP Test App</h1>
+    </div>
+    <div id="status" class="unavailable">
+      <div class="status-message unavailable">Billing is unavailable</div>
+      <div class="status-message available">Billing is available</div>
+    </div>
+    <div id="content">
+      <div class="column first-column">
+      <div class="android item-group">
+        <h2>Static Purchasables</h2>
+        <div class="item" data-sku="android.test.purchased" data-consume="true">
+          <div class="name">android.test.purchased</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+        <div class="item" data-sku="android.test.canceled" data-consume="true">
+          <div class="name">android.test.canceled</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+        <div class="item" data-sku="android.test.item_unavailable" data-consume="true">
+          <div class="name">android.test.item_unavailable</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+      </div>
+      <div class="item-group">
+        <h2>Custom Purchasables</h2>
+        <div class="item" data-sku="onetime" data-consume="false">
+          <div class="name">One-time purchasable</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+        <div class="item" data-sku="consumable" data-consume="true">
+          <div class="name">Consumable</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+        <div class="item" data-sku="nonexistent" data-consume="true">
+          <div class="name">Non-existent</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+        <div class="item" data-sku="unavailable" data-consume="true">
+          <div class="name">Unavailable</div>
+          <div class="price">$-.-&#45;</div>
+          <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+        </div>
+      </div>
+      </div>
+<!--
+      <div class="column last-column">
+        <div class="item-group">
+          <h2>Dynamic Purchasables</h2>
+          <div class="item" data-sku="org.chromium.iaptest.onetime" data-consume="false">
+            <div class="name">One-time purchasable</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+          <div class="item" data-sku="org.chromium.iaptest.onetime" data-consume="false">
+            <div class="name">One-time purchasable</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+          <div class="item" data-sku="org.chromium.iaptest.consumable" data-consume="true">
+            <div class="name">Consumable</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+          <div class="item" data-sku="org.chromium.iaptest.onetime" data-consume="false">
+            <div class="name">One-time purchasable</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+          <div class="item" data-sku="org.chromium.iaptest.consumable" data-consume="true">
+            <div class="name">Consumable</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+        </div>
+      </div>
+-->
+<!--
+      <div class="column last-column">
+        <div class="item-group">
+          <h2>Random Test Items</h2>
+          <div class="item" data-sku="org.chromium.iaptest.firsttest" data-consume="false">
+            <div class="name">First Test Product</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+          <div class="item" data-sku="org.chromium.iaptest.secondtest" data-consume="true">
+            <div class="name">Second Test Product</div>
+            <div class="price">$-.-&#45;</div>
+            <div class="qtydesc">I have <span class="qty">0</span> of these</div>
+          </div>
+        </div>
+      </div>
+-->
+    </div>
+
+    <script src="iaptest.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "Mobile Chrome Apps In-App Billing Demo",
+  "description": "This is the test application for the In-App-Payments API for Mobile Chrome Apps.",
+  "manifest_version": 2,
+  "minimum_chrome_version": "23",
+  "version": "0.1.4",
+  "offline_enabled": true,
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "oauth2": {
+    "client_id": "429153676186-efnn5o5otvpa75kpa82ee91qkd80evb3.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/youtube.readonly",
+      "https://www.googleapis.com/auth/payments.inapp_purchase"
+    ]
+  },
+  "permissions": [
+    "identity",
+    "storage",
+    "https://accounts.google.com/*",
+    "https://sandbox.google.com/*",
+    "http://www.apache.org/*"
+  ]
+}
