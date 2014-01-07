@@ -31,7 +31,7 @@ var makeBuyHandler = function(sku, consume) {
     ev.preventDefault();
 
     google.payments.inapp.buy({
-      sku: skuMap[sku][google.payments.inapp.platform],
+      sku: skuMap[sku] ? skuMap[sku][google.payments.inapp.platform] : sku,
       consume: consume,
       success: function() {
         console.log('success');
@@ -45,8 +45,8 @@ var makeBuyHandler = function(sku, consume) {
            chrome.storage.local.set(newDict);
         });
       },
-      failure: function() {
-        console.log('failure');
+      failure: function(err) {
+        console.log('buy/consume failure' + JSON.stringify(err));
         alert("Fail :(\n\n" + JSON.stringify(arguments));
       }
    });
@@ -61,10 +61,11 @@ var items = document.querySelectorAll('.item');
 for (var i=0; i < items.length; i++) {
   var sku = items[i].getAttribute('data-sku');
   var consume = (items[i].getAttribute('data-consume') === 'true');
-  items[i].addEventListener('click', mkBuy(sku, consume));
+  items[i].addEventListener('click', makeBuyHandler(sku, consume));
   skulist.push(sku);
 }
 
+function queryDetails() {
 /* Query the store for the details of all listed SKUs */
 google.payments.inapp.getSkuDetails(skulist, function(details) {
   for (var i=0; i<details.length; i++) {
@@ -77,16 +78,18 @@ google.payments.inapp.getSkuDetails(skulist, function(details) {
       }
     }
   }
-}, function() {
+}, function(err) {
+  console.log(JSON.stringify(err));
   console.log("Failed to get SKU details");
 });
-
+}
 
 /* Handle the top-line status bar. Toggle state as billing availability
  * changes.
  */
 google.payments.onBillingAvailable.addListener(function(ev) {
     document.getElementById("status").classname="available";
+    queryDetails();
 });
 google.payments.onBillingUnavailable.addListener(function(ev) {
     document.getElementById("status").className="unavailable";
@@ -95,6 +98,7 @@ google.payments.onBillingUnavailable.addListener(function(ev) {
 /* Set the initial state of the top-line status bar. */
 if (google.payments.billingAvailable) {
     document.getElementById("status").className="available";
+    queryDetails();
 }
 
 /* Utility function to set the quantity-owned label for a given SKU */
