@@ -1,9 +1,11 @@
 var skuMap = {
   "onetime": {
-    "android": "org.chromium.iaptest.onetime"
+    "android": "org.chromium.iaptest.onetime",
+    "ios": "com.google.mcaspec.knowledgeofcake"
   },
   "consumable": {
-    "android": "org.chromium.iaptest.consumable"
+    "android": "org.chromium.iaptest.consumable",
+    "ios": "com.google.mcaspec.physicalediblecake"
   },
   "nonexistent": {
     "android": "org.chromium.iaptest.nonexistent"
@@ -62,7 +64,7 @@ for (var i=0; i < items.length; i++) {
   var sku = items[i].getAttribute('data-sku');
   var consume = (items[i].getAttribute('data-consume') === 'true');
   items[i].addEventListener('click', makeBuyHandler(sku, consume));
-  skulist.push(sku);
+  skulist.push(skuMap[sku] ? skuMap[sku][google.payments.inapp.platform] : sku);
 }
 
 function queryDetails() {
@@ -88,7 +90,7 @@ google.payments.inapp.getSkuDetails(skulist, function(details) {
  * changes.
  */
 google.payments.onBillingAvailable.addListener(function(ev) {
-    document.getElementById("status").classname="available";
+    document.getElementById("status").className="available";
     queryDetails();
 });
 google.payments.onBillingUnavailable.addListener(function(ev) {
@@ -133,3 +135,4 @@ chrome.storage.local.get(null, function(values) {
       }
   }
 });
+
