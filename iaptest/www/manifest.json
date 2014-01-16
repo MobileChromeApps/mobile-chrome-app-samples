@@ -25,6 +25,7 @@
       "https://www.googleapis.com/auth/payments.inapp_purchase"
     ]
   },
+  "play_store_key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtwLDSLo6TnfHyYLxHH4XieJMJpbE+awjer3KoRAe9RYYBCe7CtORVS+xKdaj2UK5hPYvSGAbsW14I4xUHDKNDXlGTMQkwzhptfunmmelExtuVp+m8oe8qaW7iaXjgGQ9a6k4vVVNOPRcsby7D6t4xEzm4LHyMT96MLMe84P2GpTL8MjZuXtXQ79154yYCtts1ydCxyvmCOyafhuPgVjqagFkhy3Th99C6iEZTdrzI4bvXihVv8aslhDROImzqN7Ptwa/DjONety2oEVPn2PhNqmkqV3qYlR8lW5SKweQkRlLq0QUAq3SnsP7MlUj9Tze7Rp7sD8XBp0RVzljAK8u8QIDAQAB",
   "permissions": [
     "identity",
     "storage",
