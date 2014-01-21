@@ -1,17 +1,17 @@
 var skuMap = {
   "onetime": {
-    "android": "org.chromium.iaptest.onetime",
-    "ios": "com.google.mcaspec.knowledgeofcake"
+    "android-play-store": "org.chromium.iaptest.onetime",
+    "ios-app-store": "com.google.mcaspec.knowledgeofcake"
   },
   "consumable": {
-    "android": "org.chromium.iaptest.consumable",
-    "ios": "com.google.mcaspec.physicalediblecake"
+    "android-play-store": "org.chromium.iaptest.consumable",
+    "ios-app-store": "com.google.mcaspec.physicalediblecake"
   },
   "nonexistent": {
-    "android": "org.chromium.iaptest.nonexistent"
+    "android-play-store": "org.chromium.iaptest.nonexistent"
   },
   "unavailable": {
-    "android": "org.chromium.iaptest.unavailable"
+    "android-play-store": "org.chromium.iaptest.unavailable"
   }
 };
 
@@ -90,11 +90,12 @@ google.payments.inapp.getSkuDetails(skulist, function(details) {
  * changes.
  */
 google.payments.onBillingAvailable.addListener(function(ev) {
-    document.getElementById("status").className="available";
-    queryDetails();
-});
-google.payments.onBillingUnavailable.addListener(function(ev) {
-    document.getElementById("status").className="unavailable";
+    if (google.payments.inapp.isBillingAvailable) {
+        document.getElementById("status").className="available";
+        queryDetails();
+    } else {
+        document.getElementById("status").className="unavailable";
+    }
 });
 
 /* Set the initial state of the top-line status bar. */

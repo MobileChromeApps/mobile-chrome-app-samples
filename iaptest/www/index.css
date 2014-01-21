@@ -58,8 +58,8 @@ h1 {
   box-shadow: #555 0px 6px 10px;
 }
 
-.item-group.android,
-.item-group.ios {
+.item-group.android-play-store,
+.item-group.ios-app-store {
   display: none;
 }
 
