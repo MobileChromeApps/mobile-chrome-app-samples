@@ -89,7 +89,7 @@ google.payments.inapp.getSkuDetails(skulist, function(details) {
 /* Handle the top-line status bar. Toggle state as billing availability
  * changes.
  */
-google.payments.onBillingAvailable.addListener(function(ev) {
+google.payments.onBillingAvailabilityChanged.addListener(function(ev) {
     if (google.payments.inapp.isBillingAvailable) {
         document.getElementById("status").className="available";
         queryDetails();
