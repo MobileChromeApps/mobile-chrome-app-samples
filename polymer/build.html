@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Polymer Test</title>
+    
+    
+  
+</head>
+  <body><!--
+ Copyright 2013 The Polymer Authors. All rights reserved.
+ Use of this source code is governed by a BSD-style
+ license that can be found in the LICENSE file.
+-->
+
+<!-- <link rel="import" href="../polymer-dev/polymer.html"> -->
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer Elements
+ */
+-->
+<!--
+/**
+ * The polymer-selection element is used to manage selection state. It has no
+ * visual appearance and is typically used in conjuneciton with another element.
+ * For example, <a href="polymer-selector.html">polymer-selector</a>
+ * use a polymer-selection to manage selection.
+ *
+ * To mark an item as selected, call the select(item) method on 
+ * polymer-selection. Notice that the item itself is an argument to this method.
+ * The polymer-selection element manages selection state for any given set of
+ * items. When an item is selected, the `polymer-select` event is fired.
+ * The attribute "multi" indicates if multiple items can be selected at once.
+ * 
+ * Example:
+ *
+ *     <polymer-element name="selection-example">
+ *        <template>
+ *          <style>
+ *            ::-webkit-distributed(> .selected) {
+ *              font-weight: bold;
+ *              font-style: italic;
+ *            }
+ *          </style>
+ *          <ul on-tap="{{itemTapAction}}">
+ *            <content></content>
+ *          </ul>
+ *          <polymer-selection id="selection" multi on-polymer-select="{{selectAction}}"></polymer-selection>
+ *        </template>
+ *        <script>
+ *          Polymer('selection-example', {
+ *            itemTapAction: function(e) {
+ *              this.$.selection.select(e.target);
+ *            },
+ *            selectAction: function(e, detail) {
+ *              detail.item.classList.toggle('selected', detail.isSelected);
+ *            }
+ *          });
+ *        </script>
+ *     </polymer-element>
+ *
+ *     <selection-example>
+ *       <li>Red</li>
+ *       <li>Green</li>
+ *       <li>Blue</li>
+ *     </selection-example>
+ *
+ * @class polymer-selection
+ */
+ /**
+ * Fired when an item's selection state is changed. This event is fired both
+ * when an item is selected or deselected. The `isSelected` detail property
+ * contains the selection state.
+ * 
+ * @event polymer-select
+ * @param {Object} detail
+ *   @param {boolean} detail.isSelected true for selection and false for deselection
+ *   @param {Object} detail.item the item element
+ */
+-->
+
+
+<polymer-element name="polymer-selection" attributes="multi" assetpath="bower_components/polymer-selection/">
+  <template>
+    <style>
+      :host {
+        display: none !important;
+      }
+    </style>
+  </template>
+  
+</polymer-element>
+
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer Elements
+ */
+/**
+ * polymer-selector is used to manage a list of elements that can be selected.
+ * The attribute "selected" indicates which item element is being selected.
+ * The attribute "multi" indicates if multiple items can be selected at once.
+ * Tapping on the item element would fire "polymer-activate" event. Use
+ * "polymer-select" event to listen for selection changes.
+ *
+ * Example:
+ *
+ *     <polymer-selector selected="0">
+ *       <div>Item 1</div>
+ *       <div>Item 2</div>
+ *       <div>Item 3</div>
+ *     </polymer-selector>
+ *
+ * polymer-selector is not styled.  So one needs to use "polymer-selected" CSS
+ * class to style the selected element.
+ * 
+ *     <style>
+ *       .item.polymer-selected {
+ *         background: #eee;
+ *       }
+ *     </style>
+ *     ...
+ *     <polymer-selector>
+ *       <div class="item">Item 1</div>
+ *       <div class="item">Item 2</div>
+ *       <div class="item">Item 3</div>
+ *     </polymer-selector>
+ *
+ * @class polymer-selector
+ */
+/**
+ * Fired when an item's selection state is changed. This event is fired both
+ * when an item is selected or deselected. The `isSelected` detail property
+ * contains the selection state.
+ * 
+ * @event polymer-select
+ * @param {Object} detail
+ *   @param {boolean} detail.isSelected true for selection and false for deselection
+ *   @param {Object} detail.item the item element
+ */
+/**
+ * Fired when an item element is tapped.
+ * 
+ * @event polymer-activate
+ * @param {Object} detail
+ *   @param {Object} detail.item the item element
+ */
+-->
+
+
+
+<polymer-element name="polymer-selector" attributes="selected multi valueattr selectedClass selectedProperty selectedItem selectedModel selectedIndex notap target itemsSelector activateEvent" assetpath="bower_components/polymer-selector/">
+  <template>
+    <polymer-selection id="selection" multi="{{multi}}" on-polymer-select="{{selectionSelect}}"></polymer-selection>
+    <content id="items" select="*"></content>
+  </template>
+  
+</polymer-element>
+
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer Elements
+ */
+/**
+ * polymer-flex-layout provides a helper to use CSS3 Flexible Boxes.  By putting
+ * polymer-flex-layout inside an element it makes the element a flex
+ * container. Use 'flex' attribute to make the flex item flexible.
+ *
+ * Example:
+ *
+ *     <div>
+ *       <polymer-flex-layout></polymer-flex-layout>
+ *       <div>Left</div>
+ *       <div flex>Main</div>
+ *       <div>Right</div>
+ *     </div>
+ *
+ *     ---------------------------------
+ *     |-------------------------------|
+ *     ||Left|       Main       |Right||
+ *     |-------------------------------|
+ *     ---------------------------------
+ *
+ *     <div>
+ *       <polymer-flex-layout vertical></polymer-flex-layout>
+ *       <div>Header</div>
+ *       <div flex>Body</div>
+ *       <div>Footer</div>
+ *     </div>
+ *
+ *     ----------
+ *     ||------||
+ *     ||Header||
+ *     ||------||
+ *     ||Body  ||
+ *     ||      ||
+ *     ||      ||
+ *     ||      ||
+ *     ||      ||
+ *     ||      ||
+ *     ||      ||
+ *     ||------||
+ *     ||Footer||
+ *     ||------||
+ *     ----------
+ *
+ * @class polymer-flex-layout
+ */
+/**
+ * If true, flex items are aligned vertically.
+ *
+ * @attribute vertical
+ * @type boolean
+ * @default false
+ */
+/**
+ * Defines the default for how flex items are laid out along the cross axis on 
+ * the current line.  Possible values are 'start', 'center' and 'end'.
+ *
+ * @attribute align
+ * @type string
+ * @default ''
+ */
+/**
+ * Defines how flex items are laid out along the main axis on the current line.
+ * Possible values are 'start', 'center' and 'end'.
+ *
+ * @attribute justify
+ * @type string
+ * @default ''
+ */
+/**
+ * If true, polymer-flex-layout is the flex container.
+ *
+ * Example:
+ *
+ *     <polymer-flex-layout isContainer>
+ *       <div>Left</div>
+ *       <div flex>Main</div>
+ *       <div>Right</div>
+ *     </polymer-flex-layout>
+ *
+ *     ---------------------------------
+ *     |-------------------------------|
+ *     ||Left|       Main       |Right||
+ *     |-------------------------------|
+ *     ---------------------------------
+ *
+ * @attribute isContainer
+ * @type boolean
+ * @default false
+ */
+-->
+
+
+<polymer-element name="polymer-flex-layout" attributes="vertical align justify isContainer" assetpath="bower_components/polymer-flex-layout/">
+  <template>
+    <style polymer-scope="controller">/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+.flexbox, [flexbox], [h-flexbox], [v-flexbox] {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: -moz-flex !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+}
+
+.flexbox.row, [flexbox], [h-flexbox] {
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  -moz-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.flexbox.column, [v-flexbox] {
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex, [flex], [fit] {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -moz-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+::-webkit-distributed(.flex), 
+::-webkit-distributed([flex]),
+::-webkit-distributed([fit]) {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -moz-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.flexbox.align-start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -moz-align-items: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flexbox.align-end {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -moz-align-items: flex-end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flexbox.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.flexbox.justify-start {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -moz-justify-content: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+.flexbox.justify-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -moz-justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.flexbox.justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.flexbox.justify-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+:host(.flexbox:host, [flexbox]:host, [h-flexbox]:host, [v-flexbox]:host) {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: -moz-flex !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+}
+  
+:host(.flexbox.row:host, [flexbox]:host, [h-flexbox]:host) {
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  -moz-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+  
+:host(.flexbox.column:host, [v-flexbox]:host) {
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+  
+:host(.flexbox.align-start:host) {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -moz-align-items: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+  
+:host(.flexbox.align-end:host) {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -moz-align-items: flex-end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+:host(.flexbox.align-center:host) {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+:host(.flexbox.justify-start:host) {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -moz-justify-content: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+:host(.flexbox.justify-end:host) {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -moz-justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+:host(.flexbox.justify-center:host) {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+:host(.flexbox.justify-between:host) {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+</style>
+    <style>/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+.flexbox, [flexbox], [h-flexbox], [v-flexbox] {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: -moz-flex !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+}
+
+.flexbox.row, [flexbox], [h-flexbox] {
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  -moz-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.flexbox.column, [v-flexbox] {
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex, [flex], [fit] {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -moz-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+::-webkit-distributed(.flex), 
+::-webkit-distributed([flex]),
+::-webkit-distributed([fit]) {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -moz-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.flexbox.align-start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -moz-align-items: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+.flexbox.align-end {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -moz-align-items: flex-end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+.flexbox.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.flexbox.justify-start {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -moz-justify-content: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+.flexbox.justify-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -moz-justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.flexbox.justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.flexbox.justify-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+:host(.flexbox:host, [flexbox]:host, [h-flexbox]:host, [v-flexbox]:host) {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: -moz-flex !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+}
+  
+:host(.flexbox.row:host, [flexbox]:host, [h-flexbox]:host) {
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  -moz-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+  
+:host(.flexbox.column:host, [v-flexbox]:host) {
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+  
+:host(.flexbox.align-start:host) {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -moz-align-items: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+  
+:host(.flexbox.align-end:host) {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -moz-align-items: flex-end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+:host(.flexbox.align-center:host) {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+:host(.flexbox.justify-start:host) {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -moz-justify-content: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+:host(.flexbox.justify-end:host) {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -moz-justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+:host(.flexbox.justify-center:host) {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+:host(.flexbox.justify-between:host) {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+</style>
+    <content></content>
+  </template>
+  
+</polymer-element>
+
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<!--
+/**
+ * @module Polymer UI Elements
+ */
+-->
+<!--
+/**
+ * polymer-ui-tabs is a polymer-selector styled to look like a tab menu.
+ *
+ * Example:
+ *
+ *     <polymer-ui-tabs selected="0">
+ *       <span>One</span>
+ *       <span>Two</span>
+ *       <span>Three</span>
+ *       <span>Four</span>
+ *     </polymer-ui-tabs>
+ *
+ * @class polymer-ui-tabs
+ * @extends polymer-selector
+ */
+-->
+
+
+
+
+<polymer-element name="polymer-ui-tabs" extends="polymer-selector" noscript="" assetpath="bower_components/polymer-ui-tabs/">
+  <template>
+    <style>/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+
+:host {
+  height: 60px;
+  white-space: nowrap;
+}
+
+/*@polyfill :host > * */
+::content > :not(template) {
+	display: inline-block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  padding: 0 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #999;
+}
+
+/*@polyfill :host > *.polymer-selected */
+::content > *.polymer-selected {
+  background: #5599FF;
+  color: white;
+}</style>
+    <polymer-flex-layout></polymer-flex-layout>
+    <shadow></shadow>
+  </template>
+</polymer-element>
+
+    <polymer-ui-tabs selected="0">
+      <span>One</span><span>Two</span><span>Three</span><span>Four</span><span>Five</span>
+    </polymer-ui-tabs>
+  
+<script src="bower_components/platform/platform.js"></script>
+<script src="bower_components/polymer/polymer.js"></script>
+<script src="build.js"></script>
+</body>
+</html>

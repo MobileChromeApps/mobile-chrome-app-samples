@@ -1,0 +1,9 @@
+{
+  "name": "polymer-animation",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4",
+    "web-animations-js": "web-animations/web-animations-js#master"
+  },
+  "version": "0.1.4"
+}

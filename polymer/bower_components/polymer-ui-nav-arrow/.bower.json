@@ -1,0 +1,19 @@
+{
+  "name": "polymer-ui-nav-arrow",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4",
+    "polymer-ui-arrow": "Polymer/polymer-ui-arrow#0.1.4"
+  },
+  "version": "0.1.4",
+  "homepage": "https://github.com/Polymer/polymer-ui-nav-arrow",
+  "_release": "0.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.4",
+    "commit": "3105adb00b1699faaa203a485b095b052beb5035"
+  },
+  "_source": "git://github.com/Polymer/polymer-ui-nav-arrow.git",
+  "_target": "0.1.4",
+  "_originalSource": "Polymer/polymer-ui-nav-arrow"
+}

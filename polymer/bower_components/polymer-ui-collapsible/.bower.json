@@ -1,0 +1,19 @@
+{
+  "name": "polymer-ui-collapsible",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4",
+    "polymer-collapse": "Polymer/polymer-collapse#0.1.4"
+  },
+  "version": "0.1.4",
+  "homepage": "https://github.com/Polymer/polymer-ui-collapsible",
+  "_release": "0.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.4",
+    "commit": "e677146f3cb8f70e53865428f945f2f96856c1a2"
+  },
+  "_source": "git://github.com/Polymer/polymer-ui-collapsible.git",
+  "_target": "0.1.4",
+  "_originalSource": "Polymer/polymer-ui-collapsible"
+}

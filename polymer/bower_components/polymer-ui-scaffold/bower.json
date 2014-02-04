@@ -1,0 +1,13 @@
+{
+  "name": "polymer-ui-scaffold",
+  "private": true,
+  "dependencies": {
+    "polymer-ui-menu-item": "Polymer/polymer-ui-menu-item#0.1.4",
+    "polymer-ui-menu-button": "Polymer/polymer-ui-menu-button#0.1.4",
+    "polymer": "Polymer/polymer#0.1.4",
+    "polymer-grid-layout": "Polymer/polymer-grid-layout#0.1.4",
+    "polymer-ui-toolbar": "Polymer/polymer-ui-toolbar#0.1.4",
+    "polymer-ui-icon-button": "Polymer/polymer-ui-icon-button#0.1.4"
+  },
+  "version": "0.1.4"
+}

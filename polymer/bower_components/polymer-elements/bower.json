@@ -1,0 +1,35 @@
+{
+  "name": "polymer-elements",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "dependencies": {
+    "polymer-ajax": "Polymer/polymer-ajax#0.1.4",
+    "polymer-anchor-point": "Polymer/polymer-anchor-point#0.1.4",
+    "polymer-animation": "Polymer/polymer-animation#0.1.4",
+    "polymer-collapse": "Polymer/polymer-collapse#0.1.4",
+    "polymer-cookie": "Polymer/polymer-cookie#0.1.4",
+    "polymer-file": "Polymer/polymer-file#0.1.4",
+    "polymer-flex-layout": "Polymer/polymer-flex-layout#0.1.4",
+    "polymer-google-jsapi": "Polymer/polymer-google-jsapi#0.1.4",
+    "polymer-grid-layout": "Polymer/polymer-grid-layout#0.1.4",
+    "polymer-jsonp": "Polymer/polymer-jsonp#0.1.4",
+    "polymer-key-helper": "Polymer/polymer-key-helper#0.1.4",
+    "polymer-layout": "Polymer/polymer-layout#0.1.4",
+    "polymer-localstorage": "Polymer/polymer-localstorage#0.1.4",
+    "polymer-media-query": "Polymer/polymer-media-query#0.1.4",
+    "polymer-meta": "Polymer/polymer-meta#0.1.4",
+    "polymer-mock-data": "Polymer/polymer-mock-data#0.1.4",
+    "polymer-overlay": "Polymer/polymer-overlay#0.1.4",
+    "polymer-page": "Polymer/polymer-page#0.1.4",
+    "polymer-scrub": "Polymer/polymer-scrub#0.1.4",
+    "polymer-selection": "Polymer/polymer-selection#0.1.4",
+    "polymer-selector": "Polymer/polymer-selector#0.1.4",
+    "polymer-shared-lib": "Polymer/polymer-shared-lib#0.1.4",
+    "polymer-signals": "Polymer/polymer-signals#0.1.4",
+    "polymer-view-source-link": "Polymer/polymer-view-source-link#0.1.4"
+  },
+  "license": "BSD",
+  "private": true,
+  "version": "0.1.4"
+}

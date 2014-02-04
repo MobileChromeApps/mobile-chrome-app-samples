@@ -1,0 +1,12 @@
+{
+  "name": "polymer-ui-submenu-item",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4",
+    "polymer-ui-theme-aware": "Polymer/polymer-ui-theme-aware#0.1.4",
+    "polymer-ui-menu-item": "Polymer/polymer-ui-menu-item#0.1.4",
+    "polymer-ui-menu": "Polymer/polymer-ui-menu#0.1.4",
+    "polymer-collapse": "Polymer/polymer-collapse#0.1.4"
+  },
+  "version": "0.1.4"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "polymer-ui-overlay",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4",
+    "polymer-overlay": "Polymer/polymer-overlay#0.1.4"
+  },
+  "version": "0.1.4"
+}

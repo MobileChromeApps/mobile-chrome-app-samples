@@ -1,0 +1,8 @@
+{
+  "name": "polymer-signals",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.1.4"
+  },
+  "version": "0.1.4"
+}
