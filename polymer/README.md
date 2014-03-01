@@ -8,5 +8,5 @@ Follow steps http://www.polymer-project.org/getting-the-code.html:
 
 Use [vulconize](https://github.com/Polymer/vulcanize)
 
-    npm install -g vulconize
+    npm install -g vulcanize
     vulcanize --csp -o build.html index.html
