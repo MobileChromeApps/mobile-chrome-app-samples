@@ -1,6 +1,6 @@
 # In-App Purchases Test App
 
-This app provides test purchases for Android and iOS.
+This app provides test purchases for Android and iOS based on the [google.payments chorme-cordova plugin](https://github.com/MobileChromeApps/mobile-chrome-apps/tree/master/chrome-cordova/plugins/google.payments).
 
 Users can purchase consumable and non-consumable products and attempt to purchase non-existent and unavailable products.
 
@@ -10,7 +10,7 @@ Additionally, on Android, users can buy test products provided by Google. (The "
 
 ### Android
 
-To configure in-app purchasing on Android, you will need to be a registered developer on the Google Play store, and will need to upload the application to the store in order to see your license key. Once you have the license key, you can add that to your manifest (or mobile manifest) as "`play_store_key`" (See the documentation for the google.payments plugin for more details)
+To configure in-app purchasing on Android, you will need to be a registered developer on the Google Play store. See the [google.payments plugin documentation](https://github.com/MobileChromeApps/mobile-chrome-apps/blob/master/chrome-cordova/plugins/google.payments/README.md#configuration) for more details. Once you have the license key, you can add that to your manifest (or mobile manifest) for the `play_store_key`. 
 
 The `skuMap` object in `iaptest.js` defines four products for Android. For the demonstration, they are set up in the Google Play store like this:
 
@@ -24,11 +24,11 @@ To use this app to test purchases from the store, you should set up similar prod
 
 You can publish your app as an alpha or beta version and invite users to download it through a special link and test the purchase flow. Purchases made will be charged to the testers' accounts, but you can cancel them through the Google Wallet Merchant Center.
 
-See more details about testing purchases on Android [here](http://developer.android.com/google/play/billing/billing_testing.html)
+More details about [testing in-app billing on Android](http://developer.android.com/google/play/billing/billing_testing.html) are in the Android developer docs.
 
 ### iOS
 
-In order to access Apple's in-app purchase sandbox, you must create a test user through your Apple Developer account.  Instructions on how to do so can be found [here](https://developer.apple.com/library/ios/documentation/LanguagesUtilities/Conceptual/iTunesConnect_Guide/Chapters/SettingUpUserAccounts.html).
+In order to access Apple's in-app purchase sandbox, you must create a test user through your Apple Developer account.  Instructions on how to [set up test user accounts on iOS](https://developer.apple.com/library/ios/documentation/LanguagesUtilities/Conceptual/iTunesConnect_Guide/Chapters/SettingUpUserAccounts.html) can be found in the iOS developer docs.
 
 ## Using the App
 
@@ -36,7 +36,7 @@ On launch, you will be presented with a list of items to purchase.  Each item al
 
 Tap an item to attempt to purchase it.  This will initiate the platform-specific purchase flow; follow the instructions to purchase the item.  If the purchase is successful, the corresponding counter will increase.
 
-**Note:** Apple's in-app purchase sandbox is currently inaccessible due to technical issues, so product information retrieval and purchase attempts may fail.  Updates can be found [here](https://devforums.apple.com/thread/216969).
+**Note:** Apple's in-app purchase sandbox is currently inaccessible due to technical issues, so product information retrieval and purchase attempts may fail.  [Updates on the iOS purchase sandbox](https://devforums.apple.com/thread/216969) can be found in the Apple developer forums.
 
 ## Purchase Persistence
 
@@ -45,3 +45,7 @@ All purchases are stored on the device using the chrome.storage API and will be 
 Consumable purchases are *not* synced across devices.
 
 Non-consumable purchases are also not synced, but attempts to purchase one on another device (on the same platform) will notify you that the product has already been purchased and ask you to download it.
+
+## Screenshot
+
+![Screenshot of In-App Purchases Test App](assets/screenshot_nexus5.png)
