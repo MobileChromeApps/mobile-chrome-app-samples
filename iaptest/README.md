@@ -6,6 +6,8 @@ Users can purchase consumable and non-consumable products and attempt to purchas
 
 Additionally, on Android, users can buy test products provided by Google. (The "Static Purchasables" items are available to all Android applications, do not result in any actual credit card charges, and do not have to be configured in the Google Play store.) 
 
+This is a Mobile Chrome App API demo -- there is a similar demo for desktop Chrome Apps at https://github.com/GoogleChrome/chrome-app-samples/tree/master/samples/in-app-payments, as part of the [Chrome App Samples](https://github.com/GoogleChrome/chrome-app-samples) collection.
+
 ## Preparation
 
 ### Android
